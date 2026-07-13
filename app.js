@@ -1,8 +1,6 @@
 const chatMessages = document.getElementById('chatMessages');
 const chatForm = document.getElementById('chatForm');
 const messageInput = document.getElementById('messageInput');
-const apiKeyInput = document.getElementById('apiKey');
-const saveKeyBtn = document.getElementById('saveKeyBtn');
 
 const STORAGE_KEY = 'gemini_api_key';
 let conversation = [];
@@ -33,18 +31,6 @@ function removeTypingIndicator() {
 
 function getStoredApiKey() {
   return localStorage.getItem(STORAGE_KEY) || '';
-}
-
-function saveApiKey() {
-  const key = apiKeyInput.value.trim();
-  if (!key) {
-    alert('Please enter a Gemini API key.');
-    return;
-  }
-
-  localStorage.setItem(STORAGE_KEY, key);
-  apiKeyInput.value = '';
-  addMessage('API key saved locally for this browser.', 'bot');
 }
 
 async function sendToGemini(userMessage) {
@@ -101,8 +87,7 @@ chatForm.addEventListener('submit', async (event) => {
   }
 });
 
-saveKeyBtn.addEventListener('click', saveApiKey);
-
-apiKeyInput.value = getStoredApiKey();
+// API key UI removed; keys can still be provided via `localStorage` under
+// the `gemini_api_key` key if desired.
 
 addMessage('Hello! I am your simple AI assistant. Ask me anything.', 'bot');
