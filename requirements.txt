@@ -1,1 +1,4 @@
-# No external dependencies required
+# External dependencies for ML and HTTP
+requests
+scikit-learn
+joblib

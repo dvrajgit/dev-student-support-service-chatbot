@@ -3,6 +3,8 @@ import re
 from typing import List, Tuple
 
 import requests
+import joblib
+from pathlib import Path
 
 
 class StudentSupportChatbot:
@@ -13,9 +15,33 @@ class StudentSupportChatbot:
             (re.compile(r"register|registration|class", re.IGNORECASE), "You can register for classes through the student registration portal on the college website."),
         ]
 
+        # Try to load an ML pipeline if available
+        model_dir = Path("model")
+        self.pipeline = None
+        self.responses = None
+        pipeline_path = model_dir / "pipeline.joblib"
+        responses_path = model_dir / "responses.joblib"
+        if pipeline_path.exists() and responses_path.exists():
+            try:
+                self.pipeline = joblib.load(pipeline_path)
+                self.responses = joblib.load(responses_path)
+            except Exception:
+                self.pipeline = None
+                self.responses = None
+
     def respond(self, message: str) -> str:
         if not message or not message.strip():
             return "Please provide a question or request so I can help."
+
+        # If we have a trained ML pipeline, use it first.
+        if self.pipeline and self.responses:
+            try:
+                label = self.pipeline.predict([message])[0]
+                if label in self.responses:
+                    return self.responses[label]
+            except Exception:
+                # if ML fails, fall back to pattern matching
+                pass
 
         for pattern, response in self.patterns:
             if pattern.search(message):
