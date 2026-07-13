@@ -2,7 +2,6 @@ const chatMessages = document.getElementById('chatMessages');
 const chatForm = document.getElementById('chatForm');
 const messageInput = document.getElementById('messageInput');
 
-const STORAGE_KEY = 'gemini_api_key';
 let conversation = [];
 
 function addMessage(text, role = 'bot') {
@@ -29,40 +28,20 @@ function removeTypingIndicator() {
   }
 }
 
-function getStoredApiKey() {
-  return localStorage.getItem(STORAGE_KEY) || '';
-}
-
-async function sendToGemini(userMessage) {
-  const apiKey = getStoredApiKey();
-  if (!apiKey) {
-    throw new Error('Please enter your Gemini API key first.');
-  }
-
-  const payload = {
-    contents: conversation.concat([{ role: 'user', parts: [{ text: userMessage }] }]).map((entry) => ({
-      role: entry.role === 'user' ? 'user' : 'model',
-      parts: [{ text: entry.text }],
-    })),
-  };
-
-  const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    }
-  );
+async function sendToServer(userMessage) {
+  const response = await fetch('/api/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: userMessage }),
+  });
 
   if (!response.ok) {
-    const errorBody = await response.text();
-    throw new Error(`Request failed: ${response.status} ${errorBody}`);
+    const err = await response.text();
+    throw new Error(`Server request failed: ${response.status} ${err}`);
   }
 
   const data = await response.json();
-  const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'Sorry, I could not generate a reply.';
-  return reply;
+  return data.reply;
 }
 
 chatForm.addEventListener('submit', async (event) => {
@@ -77,7 +56,7 @@ chatForm.addEventListener('submit', async (event) => {
   addTypingIndicator();
 
   try {
-    const reply = await sendToGemini(userMessage);
+    const reply = await sendToServer(userMessage);
     removeTypingIndicator();
     addMessage(reply, 'bot');
     conversation.push({ role: 'bot', text: reply });
