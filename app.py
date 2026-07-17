@@ -11,11 +11,16 @@ chatbot = StudentSupportChatbot()
 def chat():
     data = request.get_json(silent=True) or {}
     message = data.get('message', '')
+    mode = data.get('mode', 'general')
+    
+    # Extract API key if sent in custom header or JSON body
+    api_key = request.headers.get('X-Gemini-API-Key') or data.get('api_key')
+
     if not message or not message.strip():
         return jsonify({'reply': "Please provide a question or request so I can help."}), 400
 
     try:
-        reply = chatbot.respond(message)
+        reply = chatbot.respond(message, api_key=api_key, mode=mode)
         return jsonify({'reply': reply})
     except Exception as e:
         return jsonify({'reply': 'An error occurred while processing your request.'}), 500
