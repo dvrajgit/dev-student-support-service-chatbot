@@ -1,0 +1,316 @@
+{
+  "sectors": {
+    "government": [
+      {
+        "organization": "NITI Aayog",
+        "role": "Research & Policy Intern",
+        "stipend": "₹15,000/month",
+        "duration": "2 months",
+        "location": "New Delhi",
+        "eligibility": "UG/PG in Economics, Public Policy, or Management",
+        "skills": [
+          "Data Analysis",
+          "Policy Research",
+          "Report Writing"
+        ],
+        "apply_url": "https://niti.gov.in/internship",
+        "deadline_days_from_today": 12
+      },
+      {
+        "organization": "DRDO (Defence Research and Development Organisation)",
+        "role": "Technical Intern – Electronics & Systems",
+        "stipend": "₹12,000/month",
+        "duration": "6 months",
+        "location": "Hyderabad / Bengaluru",
+        "eligibility": "B.Tech / M.Tech in ECE, EEE, CS",
+        "skills": [
+          "Embedded Systems",
+          "Signal Processing",
+          "Python"
+        ],
+        "apply_url": "https://drdo.gov.in/internship",
+        "deadline_days_from_today": 18
+      },
+      {
+        "organization": "ISRO (Indian Space Research Organisation)",
+        "role": "Aerospace / Software Intern",
+        "stipend": "₹10,000/month",
+        "duration": "45 days",
+        "location": "Bengaluru / Thiruvananthapuram",
+        "eligibility": "Final year B.Tech / M.Tech in CS, ECE, Mechanical",
+        "skills": [
+          "C++",
+          "MATLAB",
+          "Aerospace Simulation"
+        ],
+        "apply_url": "https://www.isro.gov.in/careers.html",
+        "deadline_days_from_today": 22
+      },
+      {
+        "organization": "MeitY (Ministry of Electronics & IT)",
+        "role": "Digital India Intern – AI/ML Track",
+        "stipend": "₹8,000/month",
+        "duration": "3 months",
+        "location": "New Delhi (Hybrid)",
+        "eligibility": "Any CS / IT / Data Science student",
+        "skills": [
+          "Machine Learning",
+          "Python",
+          "Data Science"
+        ],
+        "apply_url": "https://internship.aicte-india.org",
+        "deadline_days_from_today": 14
+      },
+      {
+        "organization": "Ministry of Finance – Budget Division",
+        "role": "Economic Research Intern",
+        "stipend": "₹10,000/month",
+        "duration": "2 months",
+        "location": "New Delhi",
+        "eligibility": "PG students in Economics or Finance",
+        "skills": [
+          "Econometrics",
+          "Excel",
+          "Policy Analysis"
+        ],
+        "apply_url": "https://finmin.nic.in",
+        "deadline_days_from_today": 28
+      }
+    ],
+    "psu": [
+      {
+        "organization": "ONGC (Oil and Natural Gas Corporation)",
+        "role": "Engineering / Geoscience Intern",
+        "stipend": "₹20,000/month",
+        "duration": "2 months",
+        "location": "Dehradun / Mumbai",
+        "eligibility": "B.Tech / M.Sc in Petroleum, Chemical, ME, CS",
+        "skills": [
+          "AutoCAD",
+          "Reservoir Simulation",
+          "Python"
+        ],
+        "apply_url": "https://ongcindia.com/ongc/mes/internship",
+        "deadline_days_from_today": 10
+      },
+      {
+        "organization": "IOCL (Indian Oil Corporation Limited)",
+        "role": "Process / IT Intern",
+        "stipend": "₹18,000/month",
+        "duration": "2 months",
+        "location": "Panipat / Mathura",
+        "eligibility": "B.Tech in Chemical, CS, or Mechanical Engineering",
+        "skills": [
+          "SAP",
+          "Process Optimization",
+          "Data Analysis"
+        ],
+        "apply_url": "https://iocl.com/recruitment/internship",
+        "deadline_days_from_today": 16
+      },
+      {
+        "organization": "NTPC Limited",
+        "role": "Power Systems Engineering Intern",
+        "stipend": "₹15,000/month",
+        "duration": "45 days",
+        "location": "Noida / Multiple Plants",
+        "eligibility": "B.Tech in Electrical, Mechanical, or Civil",
+        "skills": [
+          "Power Systems",
+          "AutoCAD",
+          "PLC"
+        ],
+        "apply_url": "https://ntpc.co.in/recruitment/student-internship",
+        "deadline_days_from_today": 25
+      },
+      {
+        "organization": "BHEL (Bharat Heavy Electricals Limited)",
+        "role": "Manufacturing / R&D Intern",
+        "stipend": "₹12,000/month",
+        "duration": "2 months",
+        "location": "Haridwar / Bhopal",
+        "eligibility": "B.Tech in ME, EE, or Electronics",
+        "skills": [
+          "SolidWorks",
+          "Heat Transfer",
+          "Production Planning"
+        ],
+        "apply_url": "https://bhel.com/recruitment",
+        "deadline_days_from_today": 20
+      },
+      {
+        "organization": "BSNL (Bharat Sanchar Nigam Limited)",
+        "role": "Telecom / IT Intern",
+        "stipend": "₹8,000/month",
+        "duration": "45 days",
+        "location": "Any State Circle Office",
+        "eligibility": "B.Tech in ECE or CS",
+        "skills": [
+          "Networking",
+          "Linux",
+          "5G Technologies"
+        ],
+        "apply_url": "https://bsnl.co.in/internship",
+        "deadline_days_from_today": 30
+      }
+    ],
+    "startup": [
+      {
+        "organization": "Groww (FinTech)",
+        "role": "Backend Engineering Intern",
+        "stipend": "₹30,000/month",
+        "duration": "3 months",
+        "location": "Bengaluru (Hybrid)",
+        "eligibility": "Pre-final/Final year CS students",
+        "skills": [
+          "Java",
+          "Spring Boot",
+          "Microservices",
+          "Kafka"
+        ],
+        "apply_url": "https://careers.groww.in/internships",
+        "deadline_days_from_today": 11
+      },
+      {
+        "organization": "Zepto (Quick Commerce)",
+        "role": "Product Management Intern",
+        "stipend": "₹25,000/month",
+        "duration": "3 months",
+        "location": "Mumbai (In-office)",
+        "eligibility": "MBA / B.Tech final year",
+        "skills": [
+          "Product Thinking",
+          "SQL",
+          "User Research"
+        ],
+        "apply_url": "https://www.zepto.team/jobs",
+        "deadline_days_from_today": 13
+      },
+      {
+        "organization": "Meesho (Social Commerce)",
+        "role": "Data Science Intern",
+        "stipend": "₹35,000/month",
+        "duration": "6 months",
+        "location": "Bengaluru (Hybrid)",
+        "eligibility": "PG or Final year UG in Statistics / CS / Math",
+        "skills": [
+          "Python",
+          "ML",
+          "PySpark",
+          "A/B Testing"
+        ],
+        "apply_url": "https://meesho.com/careers",
+        "deadline_days_from_today": 17
+      },
+      {
+        "organization": "Unacademy (EdTech)",
+        "role": "Software Development Intern",
+        "stipend": "₹25,000/month",
+        "duration": "3 months",
+        "location": "Bengaluru (Remote-friendly)",
+        "eligibility": "Pre-final year CS / IT students",
+        "skills": [
+          "React",
+          "Node.js",
+          "PostgreSQL"
+        ],
+        "apply_url": "https://unacademy.com/careers",
+        "deadline_days_from_today": 19
+      },
+      {
+        "organization": "Ola Electric (Mobility)",
+        "role": "EV Technology Intern",
+        "stipend": "₹20,000/month",
+        "duration": "3 months",
+        "location": "Bengaluru",
+        "eligibility": "B.Tech in ME / EE / ECE",
+        "skills": [
+          "Battery Management",
+          "MATLAB Simulink",
+          "CAN Protocol"
+        ],
+        "apply_url": "https://olaelectric.com/careers",
+        "deadline_days_from_today": 24
+      }
+    ],
+    "mnc_private": [
+      {
+        "organization": "Google India",
+        "role": "Software Engineering Intern (STEP / SWE)",
+        "stipend": "₹90,000/month",
+        "duration": "10–12 weeks",
+        "location": "Hyderabad / Bengaluru",
+        "eligibility": "Pre-penultimate / Penultimate year B.Tech CS students",
+        "skills": [
+          "Data Structures & Algorithms",
+          "C++/Java/Python",
+          "System Design"
+        ],
+        "apply_url": "https://careers.google.com/jobs/results/?employment_type=INTERN",
+        "deadline_days_from_today": 15
+      },
+      {
+        "organization": "Microsoft India",
+        "role": "Software Engineering Intern",
+        "stipend": "₹70,000/month",
+        "duration": "2 months",
+        "location": "Hyderabad / Noida",
+        "eligibility": "Pre-final year B.Tech / M.Tech in CS or ECE",
+        "skills": [
+          "Azure",
+          "C#/.NET / Python",
+          "Cloud Services"
+        ],
+        "apply_url": "https://careers.microsoft.com/students",
+        "deadline_days_from_today": 21
+      },
+      {
+        "organization": "Amazon India",
+        "role": "SDE Intern (AWS / Alexa / Core)",
+        "stipend": "₹80,000/month",
+        "duration": "2 months",
+        "location": "Bengaluru / Hyderabad",
+        "eligibility": "Pre-final / Final year B.Tech / M.Tech",
+        "skills": [
+          "Java",
+          "Python",
+          "Distributed Systems",
+          "LLD"
+        ],
+        "apply_url": "https://amazon.jobs/en/teams/internships-for-students",
+        "deadline_days_from_today": 23
+      },
+      {
+        "organization": "Deloitte India",
+        "role": "Technology Consulting Intern",
+        "stipend": "₹40,000/month",
+        "duration": "3 months",
+        "location": "Mumbai / Bengaluru / Hyderabad",
+        "eligibility": "MBA / Final year B.Tech",
+        "skills": [
+          "SAP",
+          "Cloud Migration",
+          "Business Analysis"
+        ],
+        "apply_url": "https://jobs.deloitte.com/in/intern",
+        "deadline_days_from_today": 27
+      },
+      {
+        "organization": "Goldman Sachs India",
+        "role": "Engineering / Quant Finance Intern",
+        "stipend": "₹75,000/month",
+        "duration": "10 weeks",
+        "location": "Bengaluru / Hyderabad",
+        "eligibility": "Pre-final year students in CS / Math / Statistics",
+        "skills": [
+          "Python",
+          "Quantitative Finance",
+          "Statistics",
+          "SQL"
+        ],
+        "apply_url": "https://www.goldmansachs.com/careers/students",
+        "deadline_days_from_today": 29
+      }
+    ]
+  }
+}

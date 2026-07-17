@@ -1,0 +1,222 @@
+{
+  "university_name": "Apex Global University",
+  "registration": {
+    "portal_url": "https://portal.apexglobal.edu/registration",
+    "deadlines": {
+      "fall_semester": "August 25, 2026",
+      "spring_semester": "January 15, 2027"
+    },
+    "guidelines": "Students must pay any outstanding balance before registering. Prerequisites must be completed or in-progress. A late fee of $150 applies to registrations after the deadline.",
+    "steps": [
+      "Log into student portal.",
+      "Navigate to Course Enrollment tab.",
+      "Select courses and click Add to Cart.",
+      "Verify course schedule and click Confirm Registration.",
+      "Complete fee payment to lock courses."
+    ]
+  },
+  "admission": {
+    "deadlines": {
+      "undergraduate_early": "November 1, 2026",
+      "undergraduate_regular": "January 15, 2027",
+      "graduate": "March 1, 2027"
+    },
+    "requirements": {
+      "undergraduate": {
+        "min_gpa": 3.0,
+        "standardized_tests": "SAT or ACT (optional)",
+        "documents": [
+          "High school transcripts",
+          "Letter of recommendation",
+          "Personal statement essay",
+          "Proof of English proficiency (if international)"
+        ]
+      },
+      "graduate": {
+        "min_gpa": 3.2,
+        "standardized_tests": "GRE or GMAT (department dependent)",
+        "documents": [
+          "Official college transcripts",
+          "3 Letters of recommendation",
+          "Statement of purpose",
+          "Resume/CV"
+        ]
+      }
+    },
+    "application_fee": "$75 (non-refundable)"
+  },
+  "placement": {
+    "statistics": {
+      "employment_rate": "94.2% within 6 months of graduation",
+      "average_package": "$82,500 per annum",
+      "highest_package": "$185,000 per annum (Computer Science Department)"
+    },
+    "top_recruiters": [
+      "Google",
+      "Microsoft",
+      "Amazon",
+      "Deloitte",
+      "JPMorgan Chase & Co.",
+      "Tesla",
+      "Goldman Sachs"
+    ],
+    "training_programs": [
+      "Resume building and critique workshops",
+      "Mock technical and behavioral interviews",
+      "Bi-annual Career Fairs (October & February)"
+    ]
+  },
+  "departments": [
+    {
+      "name": "Computer Science & Engineering",
+      "head_of_department": "Dr. Alan Turing",
+      "contact_email": "cs-advising@apexglobal.edu",
+      "faculty": [
+        {
+          "name": "Dr. Grace Hopper",
+          "role": "Professor of Compiler Design"
+        },
+        {
+          "name": "Dr. Donald Knuth",
+          "role": "Professor of Algorithms"
+        },
+        {
+          "name": "Dr. Barbara Liskov",
+          "role": "Associate Professor of Systems"
+        }
+      ]
+    },
+    {
+      "name": "Business Administration",
+      "head_of_department": "Dr. Adam Smith",
+      "contact_email": "business-advising@apexglobal.edu",
+      "faculty": [
+        {
+          "name": "Dr. Peter Drucker",
+          "role": "Professor of Management"
+        },
+        {
+          "name": "Dr. Warren Buffett",
+          "role": "Visiting Professor of Finance"
+        }
+      ]
+    },
+    {
+      "name": "Mechanical & Aerospace Engineering",
+      "head_of_department": "Dr. Katherine Johnson",
+      "contact_email": "mech-advising@apexglobal.edu",
+      "faculty": [
+        {
+          "name": "Dr. Richard Feynman",
+          "role": "Professor of Thermodynamics"
+        },
+        {
+          "name": "Dr. Nikola Tesla",
+          "role": "Associate Professor of Electromagnetics"
+        }
+      ]
+    }
+  ],
+  "courses": [
+    {
+      "code": "CS-101",
+      "title": "Introduction to Computer Science",
+      "credits": 4,
+      "department": "Computer Science & Engineering",
+      "description": "Fundamental concepts of programming, algorithms, and data structures using Python."
+    },
+    {
+      "code": "CS-302",
+      "title": "Database Management Systems",
+      "credits": 3,
+      "department": "Computer Science & Engineering",
+      "description": "Relational database design, SQL querying, transaction management, and indexing methods."
+    },
+    {
+      "code": "BUS-110",
+      "title": "Principles of Management",
+      "credits": 3,
+      "department": "Business Administration",
+      "description": "Introduction to leadership, organizational behavior, ethics, and corporate strategy."
+    },
+    {
+      "code": "ME-201",
+      "title": "Thermodynamics I",
+      "credits": 4,
+      "department": "Mechanical & Aerospace Engineering",
+      "description": "Principles of work, heat, energy conservation, entropy, and thermodynamic cycles."
+    }
+  ],
+  "fees": {
+    "tuition": {
+      "undergraduate_resident": "$12,500 per semester",
+      "undergraduate_non_resident": "$22,000 per semester",
+      "graduate": "$16,500 per semester"
+    },
+    "other_fees": {
+      "library_fee": "$250 per semester",
+      "technology_fee": "$300 per semester",
+      "student_activity_fee": "$150 per semester",
+      "health_insurance": "$1,200 per year (waivable with proof of coverage)"
+    },
+    "payment_plans": "Installment plan available (3 payments per semester with a $50 enrollment fee)."
+  },
+  "hostels": {
+    "options": [
+      {
+        "type": "Single Suite",
+        "occupancy": 1,
+        "cost": "$6,200 per semester",
+        "features": "Private bedroom, shared bathroom/living room with one roommate."
+      },
+      {
+        "type": "Double Room",
+        "occupancy": 2,
+        "cost": "$4,800 per semester",
+        "features": "Shared bedroom with one roommate, communal bathroom."
+      },
+      {
+        "type": "Apartment Style",
+        "occupancy": 4,
+        "cost": "$7,100 per semester",
+        "features": "Four private bedrooms, two bathrooms, full kitchen, in-unit laundry."
+      }
+    ],
+    "dining_plans": [
+      {
+        "name": "Unlimited Access",
+        "cost": "$2,800 per semester",
+        "description": "Unlimited meals in any dining hall."
+      },
+      {
+        "name": "14 Meals/Week",
+        "cost": "$2,300 per semester",
+        "description": "14 meals per week plus $200 dining dollars."
+      }
+    ],
+    "application_deadline": "June 15, 2026"
+  },
+  "scholarships": {
+    "types": [
+      {
+        "name": "Apex Presidential Scholarship",
+        "type": "Merit-based",
+        "coverage": "Full tuition waiver",
+        "eligibility": "Minimum 3.8 GPA, SAT score of 1500+ or ACT score of 33+."
+      },
+      {
+        "name": "Dean's Excellence Scholarship",
+        "type": "Merit-based",
+        "coverage": "$5,000 per year",
+        "eligibility": "Minimum 3.5 GPA, active extracurricular participation."
+      },
+      {
+        "name": "Apex Opportunity Grant",
+        "type": "Need-based",
+        "coverage": "Varies ($1,000 to $8,000 per year)",
+        "eligibility": "Based on FAFSA or CSS Profile financial assessment."
+      }
+    ],
+    "application_deadline": "February 1, 2027"
+  }
+}

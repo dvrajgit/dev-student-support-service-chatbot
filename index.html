@@ -1,37 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Simple AI Chatbot</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="app-shell">
-      <header class="topbar">
-        <div>
-          <p class="eyebrow">Student Support</p>
-          <h1>AI Assistant</h1>
-        </div>
-        <!-- Gemini API key input removed -->
-      </header>
 
-      <main class="chat-card">
-        <div id="chatMessages" class="messages" aria-live="polite"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple AI Chatbot</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
 
-        <form id="chatForm" class="composer">
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Student Support</p>
+        <h1>AI Assistant</h1>
+      </div>
+      <!-- Gemini API Key Panel -->
+      <div class="api-key-box">
+        <label for="apiKeyInput">🔑 Gemini API Key</label>
+        <div class="api-key-row">
           <input
-            id="messageInput"
-            type="text"
-            placeholder="Ask anything..."
+            id="apiKeyInput"
+            type="password"
+            placeholder="Paste your Gemini API key…"
             autocomplete="off"
-            required
           />
-          <button type="submit">Send</button>
-        </form>
-      </main>
-    </div>
+          <button type="button" id="saveKeyBtn">Save</button>
+          <button type="button" id="clearKeyBtn" class="btn-danger">Clear</button>
+        </div>
+        <p id="keyStatus" class="key-status"></p>
+      </div>
+    </header>
 
-    <script src="app.js"></script>
-  </body>
+
+    <main class="chat-card">
+      <div id="chatMessages" class="messages" aria-live="polite"></div>
+
+      <div class="mode-selector">
+        <button type="button" class="mode-btn active" data-mode="general">General</button>
+        <button type="button" class="mode-btn" data-mode="academic">Academic</button>
+        <button type="button" class="mode-btn" data-mode="internship">Internship</button>
+      </div>
+
+      <form id="chatForm" class="composer">
+        <input id="messageInput" type="text" placeholder="Ask anything..." autocomplete="off" required />
+        <button type="submit">Send</button>
+      </form>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+
 </html>

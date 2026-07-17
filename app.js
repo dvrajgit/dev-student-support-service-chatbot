@@ -1,8 +1,23 @@
 const chatMessages = document.getElementById('chatMessages');
 const chatForm = document.getElementById('chatForm');
 const messageInput = document.getElementById('messageInput');
+const apiKeyInput = document.getElementById('apiKeyInput');
+const saveKeyBtn = document.getElementById('saveKeyBtn');
+const clearKeyBtn = document.getElementById('clearKeyBtn');
+const keyStatus = document.getElementById('keyStatus');
 
 let conversation = [];
+let currentMode = 'general';
+
+// Mode selection logic
+const modeButtons = document.querySelectorAll('.mode-btn');
+modeButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    modeButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentMode = btn.dataset.mode;
+  });
+});
 
 function addMessage(text, role = 'bot') {
   const messageEl = document.createElement('div');
@@ -29,10 +44,18 @@ function removeTypingIndicator() {
 }
 
 async function sendToServer(userMessage) {
+  const headers = { 'Content-Type': 'application/json' };
+
+  // Extract API key from localStorage if present
+  const apiKey = localStorage.getItem('gemini_api_key');
+  if (apiKey) {
+    headers['X-Gemini-API-Key'] = apiKey;
+  }
+
   const response = await fetch('/api/chat', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ message: userMessage }),
+    headers: headers,
+    body: JSON.stringify({ message: userMessage, mode: currentMode }),
   });
 
   if (!response.ok) {
@@ -66,7 +89,35 @@ chatForm.addEventListener('submit', async (event) => {
   }
 });
 
-// API key UI removed; keys can still be provided via `localStorage` under
-// the `gemini_api_key` key if desired.
+// ── API Key Management ──────────────────────────────────────────────
+function showKeyStatus(msg, type) {
+  keyStatus.textContent = msg;
+  keyStatus.className = `key-status ${type}`;
+  setTimeout(() => { keyStatus.textContent = ''; keyStatus.className = 'key-status'; }, 3000);
+}
 
-addMessage('Hello! I am your simple AI assistant. Ask me anything.', 'bot');
+// Auto-load saved key on page start
+const savedKey = localStorage.getItem('gemini_api_key');
+if (savedKey) {
+  apiKeyInput.value = savedKey;
+  showKeyStatus('✓ Key loaded from storage', 'saved');
+}
+
+saveKeyBtn.addEventListener('click', () => {
+  const key = apiKeyInput.value.trim();
+  if (!key) {
+    showKeyStatus('⚠ Please enter an API key first.', 'cleared');
+    return;
+  }
+  localStorage.setItem('gemini_api_key', key);
+  showKeyStatus('✓ API key saved!', 'saved');
+});
+
+clearKeyBtn.addEventListener('click', () => {
+  localStorage.removeItem('gemini_api_key');
+  apiKeyInput.value = '';
+  showKeyStatus('Key cleared.', 'cleared');
+});
+
+// ── Greeting ─────────────────────────────────────────────────────────
+addMessage('Hello! I am your AI assistant. Select a mode and ask me anything.', 'bot');
