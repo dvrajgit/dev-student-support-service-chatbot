@@ -10,19 +10,38 @@
 
 <body>
   <div class="app-shell">
+    <section id="loginPanel" class="login-panel" aria-labelledby="loginTitle">
+      <div class="login-card">
+        <p class="eyebrow">Student Support</p>
+        <h1 id="loginTitle">Login</h1>
+        <form id="loginForm" class="login-form">
+          <label for="usernameInput">Username</label>
+          <input id="usernameInput" type="text" autocomplete="username" required />
+
+          <label for="passwordInput">Password</label>
+          <input id="passwordInput" type="password" autocomplete="current-password" required />
+
+          <button type="submit">Login</button>
+          <p id="loginStatus" class="login-status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section id="chatPanel" class="chat-panel hidden">
     <header class="topbar">
       <div>
         <p class="eyebrow">Student Support</p>
         <h1>AI Assistant</h1>
       </div>
+      <button type="button" id="logoutBtn" class="btn-secondary">Logout</button>
       <!-- Gemini API Key Panel -->
       <div class="api-key-box">
-        <label for="apiKeyInput">🔑 Gemini API Key</label>
+        <label for="apiKeyInput">Gemini API Key</label>
         <div class="api-key-row">
           <input
             id="apiKeyInput"
             type="password"
-            placeholder="Paste your Gemini API key…"
+            placeholder="Paste your Gemini API key..."
             autocomplete="off"
           />
           <button type="button" id="saveKeyBtn">Save</button>
@@ -47,6 +66,7 @@
         <button type="submit">Send</button>
       </form>
     </main>
+    </section>
   </div>
 
   <script src="app.js"></script>

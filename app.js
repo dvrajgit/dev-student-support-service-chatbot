@@ -1,3 +1,11 @@
+const loginPanel = document.getElementById('loginPanel');
+const chatPanel = document.getElementById('chatPanel');
+const loginForm = document.getElementById('loginForm');
+const usernameInput = document.getElementById('usernameInput');
+const passwordInput = document.getElementById('passwordInput');
+const loginStatus = document.getElementById('loginStatus');
+const logoutBtn = document.getElementById('logoutBtn');
+
 const chatMessages = document.getElementById('chatMessages');
 const chatForm = document.getElementById('chatForm');
 const messageInput = document.getElementById('messageInput');
@@ -9,11 +17,72 @@ const keyStatus = document.getElementById('keyStatus');
 let conversation = [];
 let currentMode = 'general';
 
-// Mode selection logic
+function setLoggedIn(loggedIn) {
+  loginPanel.classList.toggle('hidden', loggedIn);
+  chatPanel.classList.toggle('hidden', !loggedIn);
+
+  if (loggedIn) {
+    messageInput.focus();
+  } else {
+    usernameInput.focus();
+  }
+}
+
+function showLoginStatus(message, type = 'error') {
+  loginStatus.textContent = message;
+  loginStatus.className = `login-status ${type}`;
+}
+
+async function checkSession() {
+  try {
+    const response = await fetch('/api/session');
+    const data = await response.json();
+    setLoggedIn(Boolean(data.logged_in));
+  } catch (error) {
+    showLoginStatus('Unable to connect to the server.');
+    setLoggedIn(false);
+  }
+}
+
+loginForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  showLoginStatus('');
+
+  try {
+    const response = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: usernameInput.value.trim(),
+        password: passwordInput.value,
+      }),
+    });
+
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.message || 'Login failed.');
+    }
+
+    passwordInput.value = '';
+    showLoginStatus(data.message, 'success');
+    setLoggedIn(true);
+  } catch (error) {
+    showLoginStatus(error.message || 'Login failed.');
+  }
+});
+
+logoutBtn.addEventListener('click', async () => {
+  await fetch('/api/logout', { method: 'POST' });
+  conversation = [];
+  chatMessages.innerHTML = '';
+  addMessage('Hello! I am your AI assistant. Select a mode and ask me anything.', 'bot');
+  setLoggedIn(false);
+});
+
 const modeButtons = document.querySelectorAll('.mode-btn');
-modeButtons.forEach(btn => {
+modeButtons.forEach((btn) => {
   btn.addEventListener('click', () => {
-    modeButtons.forEach(b => b.classList.remove('active'));
+    modeButtons.forEach((button) => button.classList.remove('active'));
     btn.classList.add('active');
     currentMode = btn.dataset.mode;
   });
@@ -46,7 +115,6 @@ function removeTypingIndicator() {
 async function sendToServer(userMessage) {
   const headers = { 'Content-Type': 'application/json' };
 
-  // Extract API key from localStorage if present
   const apiKey = localStorage.getItem('gemini_api_key');
   if (apiKey) {
     headers['X-Gemini-API-Key'] = apiKey;
@@ -54,16 +122,15 @@ async function sendToServer(userMessage) {
 
   const response = await fetch('/api/chat', {
     method: 'POST',
-    headers: headers,
+    headers,
     body: JSON.stringify({ message: userMessage, mode: currentMode }),
   });
 
+  const data = await response.json().catch(() => ({}));
   if (!response.ok) {
-    const err = await response.text();
-    throw new Error(`Server request failed: ${response.status} ${err}`);
+    throw new Error(data.reply || data.message || `Server request failed: ${response.status}`);
   }
 
-  const data = await response.json();
   return data.reply;
 }
 
@@ -89,28 +156,29 @@ chatForm.addEventListener('submit', async (event) => {
   }
 });
 
-// ── API Key Management ──────────────────────────────────────────────
-function showKeyStatus(msg, type) {
-  keyStatus.textContent = msg;
+function showKeyStatus(message, type) {
+  keyStatus.textContent = message;
   keyStatus.className = `key-status ${type}`;
-  setTimeout(() => { keyStatus.textContent = ''; keyStatus.className = 'key-status'; }, 3000);
+  setTimeout(() => {
+    keyStatus.textContent = '';
+    keyStatus.className = 'key-status';
+  }, 3000);
 }
 
-// Auto-load saved key on page start
 const savedKey = localStorage.getItem('gemini_api_key');
 if (savedKey) {
   apiKeyInput.value = savedKey;
-  showKeyStatus('✓ Key loaded from storage', 'saved');
+  showKeyStatus('Key loaded from storage', 'saved');
 }
 
 saveKeyBtn.addEventListener('click', () => {
   const key = apiKeyInput.value.trim();
   if (!key) {
-    showKeyStatus('⚠ Please enter an API key first.', 'cleared');
+    showKeyStatus('Please enter an API key first.', 'cleared');
     return;
   }
   localStorage.setItem('gemini_api_key', key);
-  showKeyStatus('✓ API key saved!', 'saved');
+  showKeyStatus('API key saved.', 'saved');
 });
 
 clearKeyBtn.addEventListener('click', () => {
@@ -119,5 +187,5 @@ clearKeyBtn.addEventListener('click', () => {
   showKeyStatus('Key cleared.', 'cleared');
 });
 
-// ── Greeting ─────────────────────────────────────────────────────────
 addMessage('Hello! I am your AI assistant. Select a mode and ask me anything.', 'bot');
+checkSession();
