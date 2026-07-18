@@ -1,4 +1,7 @@
 import unittest
+from unittest.mock import Mock, patch
+
+import requests
 
 from app import app
 from student_support_chatbot import StudentSupportChatbot
@@ -23,6 +26,21 @@ class StudentSupportChatbotTests(unittest.TestCase):
     def test_unknown_question_response(self):
         response = self.chatbot.respond("How do I reset my password?")
         self.assertIn("support team", response)
+
+    def test_groq_rate_limit_response_does_not_leak_api_key(self):
+        api_key = "secret-test-key"
+        response = Mock()
+        response.status_code = 429
+        response.raise_for_status.side_effect = requests.HTTPError(response=response)
+
+        with patch("student_support_chatbot.requests.post", return_value=response) as post:
+            reply = self.chatbot.respond("iit delhi admissions", api_key=api_key, mode="academic")
+
+        self.assertIn("rate-limited", reply)
+        self.assertNotIn(api_key, reply)
+        self.assertNotIn("api.groq.com", reply)
+        self.assertEqual(post.call_args.kwargs["headers"]["Authorization"], f"Bearer {api_key}")
+        self.assertEqual(post.call_args.args[0], "https://api.groq.com/openai/v1/chat/completions")
 
 
 class AppLoginTests(unittest.TestCase):

@@ -21,3 +21,13 @@ set CHATBOT_USERNAME=your_username
 set CHATBOT_PASSWORD=your_password
 python app.py
 ```
+
+## Groq API
+
+Academic and Internship modes use Groq. Paste a Groq API key in the app, or set it before starting Flask:
+
+```bash
+set GROQ_API_KEY=your_groq_api_key
+set GROQ_MODEL=llama-3.1-8b-instant
+python app.py
+```
