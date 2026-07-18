@@ -11,6 +11,10 @@ import joblib
 from pathlib import Path
 
 
+class GroqAPIError(RuntimeError):
+    """User-safe error raised when Groq cannot complete a request."""
+
+
 class StudentSupportChatbot:
     def __init__(self):
         self.patterns: List[Tuple[re.Pattern, str]] = [
@@ -58,11 +62,11 @@ class StudentSupportChatbot:
         if not message or not message.strip():
             return "Please provide a question or request so I can help."
 
-        # If a specialized mode is selected, bypass pattern/ML and route to Gemini.
+        # If a specialized mode is selected, bypass pattern/ML and route to Groq.
         if mode in ("academic", "internship"):
-            effective_key = api_key or os.getenv("GEMINI_API_KEY")
+            effective_key = api_key or os.getenv("GROQ_API_KEY")
             if not effective_key:
-                return "To use Academic or Internship modes, please set the GEMINI_API_KEY environment variable or save it in your browser's localStorage."
+                return "To use Academic or Internship modes, please set the GROQ_API_KEY environment variable or save it in your browser."
             try:
                 if mode == "academic":
                     prompt_text = (
@@ -88,9 +92,11 @@ class StudentSupportChatbot:
                         f"LIVE Internship Listings (as of {today_str}):\n{fresh_data}\n\n"
                         f"Student Question: {message}\nAdvisor Answer:"
                     )
-                return self._call_gemini(prompt_text, api_key=effective_key)
-            except Exception as e:
-                return f"Error contacting Gemini API: {str(e)}"
+                return self._call_groq(prompt_text, api_key=effective_key)
+            except GroqAPIError as e:
+                return str(e)
+            except Exception:
+                return "Groq is unavailable right now. Please try again later."
 
         # If we have a trained ML pipeline, use it first.
         if self.pipeline and self.responses:
@@ -106,13 +112,13 @@ class StudentSupportChatbot:
             if pattern.search(message):
                 return response
 
-        # If a Gemini API key is available, try generating a response from Gemini.
-        effective_key = api_key or os.getenv("GEMINI_API_KEY")
+        # If a Groq API key is available, try generating a response from Groq.
+        effective_key = api_key or os.getenv("GROQ_API_KEY")
         if effective_key:
             try:
-                return self._call_gemini(message, api_key=effective_key)
+                return self._call_groq(message, api_key=effective_key)
             except Exception:
-                # Fall back to the default message if Gemini fails
+                # Fall back to the default message if Groq fails.
                 return "I can help with student support questions. Please contact the support team for further assistance."
 
         return "I can help with student support questions. Please contact the support team for further assistance."
@@ -170,52 +176,54 @@ class StudentSupportChatbot:
 
 
 
-    def _call_gemini(self, prompt: str, api_key: str = None) -> str:
-        """Call the Gemini REST API (v1beta generateContent) using the provided
-        API key or the GEMINI_API_KEY environment variable.
-        The model can be overridden via the GEMINI_MODEL env var.
-        Defaults to gemini-2.0-flash.
+    def _call_groq(self, prompt: str, api_key: str = None) -> str:
+        """Call Groq's OpenAI-compatible chat completions API.
+
+        The API key comes from the provided value or GROQ_API_KEY.
+        The model can be overridden via GROQ_MODEL.
         """
-        effective_key = api_key or os.getenv("GEMINI_API_KEY")
+        effective_key = api_key or os.getenv("GROQ_API_KEY")
         if not effective_key:
-            raise RuntimeError("GEMINI_API_KEY not set")
+            raise RuntimeError("GROQ_API_KEY not set")
 
-        # Use the correct v1beta generateContent endpoint (not the deprecated v1beta2 generateText)
-        model = os.getenv("GEMINI_MODEL", "gemini-2.0-flash")
-        # Strip leading "models/" prefix if user set it in the env var
-        model = model.replace("models/", "")
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={effective_key}"
+        model = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
+        url = "https://api.groq.com/openai/v1/chat/completions"
 
-        # Gemini generateContent payload format
         payload = {
-            "contents": [
-                {
-                    "parts": [{"text": prompt}]
-                }
-            ],
-            "generationConfig": {
-                "maxOutputTokens": 1024,
-                "temperature": 0.7,
-            }
+            "model": model,
+            "messages": [{"role": "user", "content": prompt}],
+            "max_tokens": 1024,
+            "temperature": 0.7,
         }
 
-        resp = requests.post(url, json=payload, timeout=30)
-        resp.raise_for_status()
+        resp = requests.post(
+            url,
+            headers={
+                "Authorization": f"Bearer {effective_key}",
+                "Content-Type": "application/json",
+            },
+            json=payload,
+            timeout=30,
+        )
+        try:
+            resp.raise_for_status()
+        except requests.HTTPError as exc:
+            status_code = exc.response.status_code if exc.response is not None else None
+            if status_code == 429:
+                raise GroqAPIError(
+                    "Groq is rate-limited right now. Please wait a minute, check your API quota, or try a different API key."
+                ) from exc
+            if status_code in (400, 401, 403):
+                raise GroqAPIError(
+                    "Groq rejected the API key or request. Please check that your API key is valid and has Groq API access."
+                ) from exc
+            raise GroqAPIError("Groq is unavailable right now. Please try again later.") from exc
         data = resp.json()
 
-        # Parse: candidates[0].content.parts[0].text
         try:
-            return data["candidates"][0]["content"]["parts"][0]["text"]
+            return data["choices"][0]["message"]["content"]
         except (KeyError, IndexError, TypeError):
-            pass
-
-        # Fallback: try promptFeedback blockReason
-        block = data.get("promptFeedback", {}).get("blockReason")
-        if block:
-            return f"Response blocked by safety filter: {block}"
-
-        return "I can help with student support questions. Please contact the support team for further assistance."
-
+            return "I can help with student support questions. Please contact the support team for further assistance."
 
 
 def main() -> None:

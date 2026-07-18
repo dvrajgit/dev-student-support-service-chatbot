@@ -115,9 +115,9 @@ function removeTypingIndicator() {
 async function sendToServer(userMessage) {
   const headers = { 'Content-Type': 'application/json' };
 
-  const apiKey = localStorage.getItem('gemini_api_key');
+  const apiKey = localStorage.getItem('groq_api_key');
   if (apiKey) {
-    headers['X-Gemini-API-Key'] = apiKey;
+    headers['X-Groq-API-Key'] = apiKey;
   }
 
   const response = await fetch('/api/chat', {
@@ -165,7 +165,9 @@ function showKeyStatus(message, type) {
   }, 3000);
 }
 
-const savedKey = localStorage.getItem('gemini_api_key');
+localStorage.removeItem('gemini_api_key');
+
+const savedKey = localStorage.getItem('groq_api_key');
 if (savedKey) {
   apiKeyInput.value = savedKey;
   showKeyStatus('Key loaded from storage', 'saved');
@@ -177,12 +179,12 @@ saveKeyBtn.addEventListener('click', () => {
     showKeyStatus('Please enter an API key first.', 'cleared');
     return;
   }
-  localStorage.setItem('gemini_api_key', key);
+  localStorage.setItem('groq_api_key', key);
   showKeyStatus('API key saved.', 'saved');
 });
 
 clearKeyBtn.addEventListener('click', () => {
-  localStorage.removeItem('gemini_api_key');
+  localStorage.removeItem('groq_api_key');
   apiKeyInput.value = '';
   showKeyStatus('Key cleared.', 'cleared');
 });

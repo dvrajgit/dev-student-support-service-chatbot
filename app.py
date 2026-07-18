@@ -48,8 +48,8 @@ def chat():
     message = data.get('message', '')
     mode = data.get('mode', 'general')
     
-    # Extract API key if sent in custom header or JSON body
-    api_key = request.headers.get('X-Gemini-API-Key') or data.get('api_key')
+    # Extract API key if sent in custom header or JSON body.
+    api_key = request.headers.get('X-Groq-API-Key') or data.get('api_key')
 
     if not message or not message.strip():
         return jsonify({'reply': "Please provide a question or request so I can help."}), 400
